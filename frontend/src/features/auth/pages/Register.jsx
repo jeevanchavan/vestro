@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from "../hook/useAuth";
 import { useNavigate } from 'react-router';
-// import ContinueWithGoogle from '../components/ContinueWithGoogle';
+import ContinueWithGoogle from '../components/ContinueWithGoogle';
 
 const Register = () => {
     const { handleRegister } = useAuth();
@@ -280,8 +280,8 @@ const Register = () => {
                                 <div className="flex-1 h-px" style={{ backgroundColor: '#e4e2df' }} />
                             </div>
 
-                            {/* Google SSO
-                            <ContinueWithGoogle /> */}
+                            {/* Google SSO */}
+                            <ContinueWithGoogle />
 
                             {/* Footer Link */}
                             <p className="text-center text-[11px]" style={{ color: '#B5ADA3' }}>
