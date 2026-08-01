@@ -4,12 +4,14 @@ import cors from 'cors'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
 import { config } from "./config/config.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 app.use(cors({
     origin:"http://localhost:5173",
@@ -32,7 +34,9 @@ app.get("/", (_req, res) => {
 });
 
 import authRouter from './routes/auth.routes.js';
+import productRouter from './routes/product.routes.js';
 
 app.use("/api/auth",authRouter);
+app.use("/api/products",productRouter)
 
 export default app;
