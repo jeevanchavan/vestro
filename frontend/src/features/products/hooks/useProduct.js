@@ -1,22 +1,22 @@
-import { cerateProduct,getAllProducts } from "../services/product.api";
+import { cerateProduct, getSellerProducts, getAllProducts } from "../services/product.api";
 import { useDispatch } from "react-redux";
-import { setSellerProducts } from "../state/product.slice";
+import { setSellerProducts, setProducts } from "../state/product.slice";
 
 
 export const useProduct = () => {
 
     const dispatch = useDispatch();
 
-    const handleCreateProduct = async (formData) =>{
+    const handleCreateProduct = async (formData) => {
 
         const data = await cerateProduct(formData);
-        
+
         return data.product;
     }
 
-    const handleGetSellerProducts = async () =>{
+    const handleGetSellerProducts = async () => {
 
-        const data = await getAllProducts();
+        const data = await getSellerProducts();
         // console.log(data);
         dispatch(setSellerProducts(data.products));
 
@@ -24,8 +24,15 @@ export const useProduct = () => {
 
     }
 
-    return{
+    const handleGetAllProducts = async () => {
+        const data = await getAllProducts();
+        dispatch(setProducts(data.products));
+        return data.products;
+    }
+
+    return {
         handleCreateProduct,
-        handleGetSellerProducts
+        handleGetSellerProducts,
+        handleGetAllProducts
     }
 }

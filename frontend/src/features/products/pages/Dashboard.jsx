@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 const Dashboard = () => {
-    const { handleGetAllProducts } = useProduct();
+    const { handleGetSellerProducts } = useProduct();
     const sellerProducts = useSelector(state => state.product.sellerProducts);
     const navigate = useNavigate();
 
     useEffect(() => {
-        handleGetAllProducts();
+        handleGetSellerProducts();
     }, []);
 
     return (
