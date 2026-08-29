@@ -75,7 +75,7 @@ const CreateProduct = () => {
         }
     };
 
-    const inputClass = "w-full bg-transparent outline-none py-4 text-sm transition-colors duration-300 placeholder:text-[#d0c5b5]";
+    const inputClass = "w-full bg-transparent outline-none py-3 text-sm transition-colors duration-300 placeholder:text-[#d0c5b5]";
     const inputStyle = { color: '#1b1c1a', borderBottom: '1px solid #d0c5b5', fontFamily: "'Inter', sans-serif" };
     const handleFocus = (e) => { e.target.style.borderBottomColor = '#C9A96E'; };
     const handleBlur = (e) => { e.target.style.borderBottomColor = '#d0c5b5'; };
@@ -89,16 +89,22 @@ const CreateProduct = () => {
             />
 
             <div
-                className="min-h-screen selection:bg-[#C9A96E]/30"
+                className="w-full min-h-screen selection:bg-[#C9A96E]/30 py-10 lg:py-16"
                 style={{ backgroundColor: '#fbf9f6', fontFamily: "'Inter', sans-serif" }}
             >
-                <div className="max-w-6xl mx-auto px-8 lg:px-16 xl:px-24">
-
-                    {/* ── Top Bar ── */}
-                    <div className="pt-10 pb-0 flex items-center gap-5">
+                {/* ── SINGLE CENTERED MAIN CONTAINER ── */}
+                <div
+                    style={{
+                        width: 'min(1200px, calc(100% - 80px))',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
+                    }}
+                >
+                    {/* ── Header / Navigation ── */}
+                    <header className="flex items-center gap-4">
                         <button
                             onClick={() => navigate(-1)}
-                            className="text-lg transition-colors duration-200 leading-none"
+                            className="text-lg transition-colors duration-200 leading-none cursor-pointer p-1 -ml-1"
                             style={{ color: '#B5ADA3' }}
                             aria-label="Go back"
                             onMouseEnter={e => e.currentTarget.style.color = '#C9A96E'}
@@ -110,31 +116,33 @@ const CreateProduct = () => {
                             className="text-xs font-medium tracking-[0.32em] uppercase"
                             style={{ fontFamily: "'Cormorant Garamond', serif", color: '#C9A96E' }}
                         >
-                            Snitch.
+                            VESTRO.
                         </span>
-                    </div>
+                    </header>
 
-                    {/* ── Page Header ── */}
-                    <div className="pt-10 pb-0">
+                    {/* ── Page Heading ── */}
+                    <div style={{ marginTop: '48px', marginBottom: '56px' }}>
                         <h1
                             className="text-4xl lg:text-5xl font-light leading-tight"
                             style={{ fontFamily: "'Cormorant Garamond', serif", color: '#1b1c1a' }}
                         >
                             New Listing
                         </h1>
-                        {/* Gold rule separator */}
-                        <div className="mt-4 w-14 h-px" style={{ backgroundColor: '#C9A96E' }} />
+                        <div className="mt-3 w-14 h-px" style={{ backgroundColor: '#C9A96E' }} />
                     </div>
 
-                    {/* ── Form ── */}
-                    <form onSubmit={handleSubmit} className="pt-14 pb-24">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 lg:items-start">
-
-                            {/* ── LEFT COLUMN: Text Fields ── */}
-                            <div className="flex flex-col gap-12">
+                    {/* ── Form Container ── */}
+                    <form onSubmit={handleSubmit} className="w-full">
+                        {/* 2-Column Grid (1fr 1fr, 64px gap) */}
+                        <div
+                            className="grid grid-cols-1 lg:grid-cols-2 items-start"
+                            style={{ gap: '64px' }}
+                        >
+                            {/* ── LEFT COLUMN: Product Details ── */}
+                            <div className="flex flex-col gap-8 w-full">
 
                                 {/* Product Title */}
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-2 w-full">
                                     <label
                                         htmlFor="cp-title"
                                         className="text-[10px] uppercase tracking-[0.2em] font-medium"
@@ -158,7 +166,7 @@ const CreateProduct = () => {
                                 </div>
 
                                 {/* Description */}
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-2 w-full">
                                     <label
                                         htmlFor="cp-description"
                                         className="text-[10px] uppercase tracking-[0.2em] font-medium"
@@ -171,23 +179,31 @@ const CreateProduct = () => {
                                         name="description"
                                         value={formData.description}
                                         onChange={handleChange}
-                                        rows={5}
+                                        rows={6}
                                         placeholder="Describe the product — material, fit, details..."
-                                        className="w-full bg-transparent outline-none py-4 text-sm transition-colors duration-300 resize-none leading-relaxed placeholder:text-[#d0c5b5]"
-                                        style={inputStyle}
+                                        className="w-full bg-transparent outline-none py-3 text-sm transition-colors duration-300 resize-none leading-relaxed placeholder:text-[#d0c5b5]"
+                                        style={{ ...inputStyle, minHeight: '180px' }}
                                         onFocus={handleFocus}
                                         onBlur={handleBlur}
                                     />
                                 </div>
 
-                                {/* Price */}
-                                <div className="flex flex-col gap-3">
+                                {/* Price Section: 2fr 1fr Grid, 24px Gap */}
+                                <div className="flex flex-col gap-2 w-full">
                                     <label className="text-[10px] uppercase tracking-[0.2em] font-medium" style={{ color: '#7A6E63' }}>
                                         Price
                                     </label>
-                                    <div className="flex gap-5 items-end">
+                                    <div
+                                        className="w-full"
+                                        style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: '2fr 1fr',
+                                            gap: '24px',
+                                            alignItems: 'end'
+                                        }}
+                                    >
                                         {/* Amount */}
-                                        <div className="flex flex-col gap-1 flex-3">
+                                        <div className="flex flex-col gap-1 w-full">
                                             <span className="text-[9px] uppercase tracking-[0.18em]" style={{ color: '#B5ADA3' }}>Amount</span>
                                             <input
                                                 id="cp-priceAmount"
@@ -206,14 +222,14 @@ const CreateProduct = () => {
                                             />
                                         </div>
                                         {/* Currency */}
-                                        <div className="flex flex-col gap-1 flex-1">
+                                        <div className="flex flex-col gap-1 w-full">
                                             <span className="text-[9px] uppercase tracking-[0.18em]" style={{ color: '#B5ADA3' }}>Currency</span>
                                             <select
                                                 id="cp-priceCurrency"
                                                 name="priceCurrency"
                                                 value={formData.priceCurrency}
                                                 onChange={handleChange}
-                                                className="w-full bg-transparent outline-none py-4 text-sm cursor-pointer appearance-none transition-colors duration-300"
+                                                className="w-full bg-transparent outline-none py-3 text-sm cursor-pointer appearance-none transition-colors duration-300"
                                                 style={inputStyle}
                                                 onFocus={handleFocus}
                                                 onBlur={handleBlur}
@@ -227,48 +243,49 @@ const CreateProduct = () => {
                                 </div>
                             </div>
 
-                            {/* ── RIGHT COLUMN: Images ── */}
-                            <div className="flex flex-col gap-4">
-                                <div className="flex items-center justify-between">
+                            {/* ── RIGHT COLUMN: Images Upload Section ── */}
+                            <div className="flex flex-col gap-3 w-full">
+                                <div className="flex items-center justify-between w-full">
                                     <label className="text-[10px] uppercase tracking-[0.2em] font-medium" style={{ color: '#7A6E63' }}>
                                         Images
                                     </label>
-                                    <span className="text-[10px]" style={{ color: '#B5ADA3' }}>
+                                    <span className="text-[10px] tracking-wider" style={{ color: '#B5ADA3' }}>
                                         {images.length}/{MAX_IMAGES}
                                     </span>
                                 </div>
 
-                                {/* Drop Zone */}
+                                {/* Drop Zone (Exact 380px Height) */}
                                 {images.length < MAX_IMAGES && (
                                     <div
                                         onDrop={handleDrop}
                                         onDragOver={handleDragOver}
                                         onDragLeave={handleDragLeave}
                                         onClick={() => fileInputRef.current?.click()}
-                                        className="border border-dashed px-8 py-14 lg:py-20 flex flex-col items-center gap-4 cursor-pointer transition-all duration-300"
+                                        className="w-full border border-dashed px-8 py-12 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-300 group rounded-none"
                                         style={{
+                                            height: '380px',
                                             borderColor: isDragging ? '#C9A96E' : '#d0c5b5',
                                             backgroundColor: isDragging ? 'rgba(201,169,110,0.04)' : 'transparent'
                                         }}
                                     >
-                                        {/* Upload icon */}
+                                        {/* Upload Icon */}
                                         <div
-                                            className="w-10 h-10 flex items-center justify-center border transition-colors duration-300"
+                                            className="w-12 h-12 flex items-center justify-center border transition-colors duration-300 group-hover:border-[#C9A96E] group-hover:text-[#C9A96E]"
                                             style={{ borderColor: isDragging ? '#C9A96E' : '#d0c5b5', color: isDragging ? '#C9A96E' : '#B5ADA3' }}
                                         >
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                             </svg>
                                         </div>
-                                        <div className="text-center">
-                                            <p className="text-sm leading-relaxed" style={{ color: '#7A6E63' }}>
+                                        <div className="text-center flex flex-col gap-1.5">
+                                            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#7A6E63' }}>
                                                 Drop images here or{' '}
-                                                <span style={{ color: '#C9A96E', textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+                                                <span style={{ color: '#C9A96E', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
                                                     tap to upload
                                                 </span>
                                             </p>
-                                            <p className="text-[10px] uppercase tracking-[0.15em] mt-2" style={{ color: '#B5ADA3' }}>
-                                                Up to {MAX_IMAGES} images
+                                            <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: '#B5ADA3' }}>
+                                                UP TO {MAX_IMAGES} IMAGES
                                             </p>
                                         </div>
                                         <input
@@ -284,11 +301,11 @@ const CreateProduct = () => {
 
                                 {/* Image Previews */}
                                 {images.length > 0 && (
-                                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-1">
+                                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-2 w-full">
                                         {images.map((img, index) => (
                                             <div
                                                 key={index}
-                                                className="relative aspect-square overflow-hidden group"
+                                                className="relative aspect-square overflow-hidden group border border-[#d0c5b5]/40"
                                                 style={{ backgroundColor: '#eae8e5' }}
                                             >
                                                 <img
@@ -296,15 +313,15 @@ const CreateProduct = () => {
                                                     alt={`Preview ${index + 1}`}
                                                     className="w-full h-full object-cover"
                                                 />
-                                                {/* Remove overlay */}
+                                                {/* Remove Overlay */}
                                                 <button
                                                     type="button"
                                                     onClick={() => removeImage(index)}
-                                                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs font-medium tracking-widest uppercase"
-                                                    style={{ backgroundColor: 'rgba(27,24,20,0.55)', color: '#fbf9f6' }}
+                                                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[10px] font-medium tracking-widest uppercase cursor-pointer"
+                                                    style={{ backgroundColor: 'rgba(27,24,20,0.65)', color: '#fbf9f6' }}
                                                     aria-label={`Remove image ${index + 1}`}
                                                 >
-                                                    Remove
+                                                    REMOVE
                                                 </button>
                                             </div>
                                         ))}
@@ -313,12 +330,12 @@ const CreateProduct = () => {
                             </div>
                         </div>
 
-                        {/* ── Submit Button ── */}
-                        <div className="mt-16 lg:mt-20">
+                        {/* ── Publish CTA Button (Inside Main Container, 48px Top Margin) ── */}
+                        <div className="w-full" style={{ marginTop: '48px' }}>
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full py-5 text-[11px] uppercase tracking-[0.3em] font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full h-[54px] text-[11px] uppercase tracking-[0.28em] font-medium transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 style={{
                                     backgroundColor: isSubmitting ? '#7A6E63' : '#1b1c1a',
                                     color: '#fbf9f6',
@@ -337,7 +354,7 @@ const CreateProduct = () => {
                                     }
                                 }}
                             >
-                                {isSubmitting ? 'Publishing...' : 'Publish Listing'}
+                                {isSubmitting ? 'PUBLISHING...' : 'PUBLISH LISTING'}
                             </button>
                         </div>
                     </form>
