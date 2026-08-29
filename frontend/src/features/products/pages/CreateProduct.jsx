@@ -335,7 +335,7 @@ const CreateProduct = () => {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full h-[54px] text-[11px] uppercase tracking-[0.28em] font-medium transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full h-13.5 text-[11px] uppercase tracking-[0.28em] font-medium transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                 style={{
                                     backgroundColor: isSubmitting ? '#7A6E63' : '#1b1c1a',
                                     color: '#fbf9f6',

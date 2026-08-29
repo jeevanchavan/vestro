@@ -10,7 +10,7 @@ export const cerateProduct = async(formData) =>{
     return response.data;
 }
 
-export const getAllProducts = async() =>{
+export const getSellerProducts = async() =>{
     const response = await api.get("/seller");
     return response.data;
 }
