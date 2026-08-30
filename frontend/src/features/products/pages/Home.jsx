@@ -38,6 +38,14 @@ const Home = () => {
     };
 
     const userName = user ? (user.fullname || user.fullName || user.name || user.email) : null;
+    const productCount = products?.length || 0;
+
+    // Determine grid columns dynamically based on product count for optimal visual balance
+    const getGridClass = () => {
+        if (productCount === 1) return "grid grid-cols-1 max-w-[420px] mx-auto gap-8";
+        if (productCount === 2) return "grid grid-cols-1 md:grid-cols-2 max-w-[860px] mx-auto gap-8 lg:gap-10";
+        return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10";
+    };
 
     return (
         <>
@@ -52,12 +60,12 @@ const Home = () => {
                 style={{ backgroundColor: '#fbf9f6', fontFamily: "'Inter', sans-serif" }}
             >
                 <div>
-                    {/* ── Header Navigation ── */}
-                    <header className="w-full border-b border-[#e4e2df] py-5">
+                    {/* ── 8. Header Navigation (Aligned with 1150px container) ── */}
+                    <header className="w-full border-b border-[#e4e2df] py-5 bg-[#fbf9f6]">
                         <div
                             className="flex items-center justify-between gap-6"
                             style={{
-                                width: 'min(1200px, calc(100% - 80px))',
+                                width: 'min(1150px, calc(100% - 64px))',
                                 marginLeft: 'auto',
                                 marginRight: 'auto'
                             }}
@@ -71,11 +79,11 @@ const Home = () => {
                                 VESTRO<span style={{ color: '#C9A96E' }}>.</span>
                             </span>
 
-                            {/* User Actions */}
+                            {/* User & Seller Actions */}
                             <div className="flex items-center gap-4">
                                 {user ? (
                                     <div className="flex items-center gap-4">
-                                        {/* User Tag */}
+                                        {/* User Badge */}
                                         <div className="flex items-center gap-2 px-3 py-1.5 border border-[#d0c5b5] bg-white/60">
                                             <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E]" />
                                             <span className="text-[10px] font-medium tracking-wider uppercase text-[#1b1c1a]">
@@ -113,17 +121,17 @@ const Home = () => {
                         </div>
                     </header>
 
-                    {/* ── Main Content ── */}
+                    {/* ── Main Content Container (Centered 1150px) ── */}
                     <main
-                        className="pt-12 pb-24 lg:pt-16 lg:pb-32 flex flex-col gap-16 lg:gap-20"
+                        className="pt-8 pb-16 lg:pt-12 lg:pb-24 flex flex-col gap-10 lg:gap-14"
                         style={{
-                            width: 'min(1200px, calc(100% - 80px))',
+                            width: 'min(1150px, calc(100% - 64px))',
                             marginLeft: 'auto',
                             marginRight: 'auto'
                         }}
                     >
-                        {/* Hero Banner */}
-                        <section className="text-center flex flex-col items-center gap-4 py-4">
+                        {/* ── 1. Hero Banner (Compact & Balanced Vertical Spacing) ── */}
+                        <section className="text-center flex flex-col items-center gap-3 py-2">
                             <span
                                 className="text-[10px] uppercase tracking-[0.3em] font-medium"
                                 style={{ color: '#C9A96E' }}
@@ -136,75 +144,76 @@ const Home = () => {
                             >
                                 Minimalist Luxury & Quiet Elegance
                             </h1>
-                            <p className="max-w-md text-xs text-[#7A6E63] leading-relaxed mt-1">
+                            <p className="max-w-md text-xs text-[#7A6E63] leading-relaxed mt-0.5">
                                 Discover our latest archive of essential fashion statements, crafted for effortless sophistication.
                             </p>
-                            <div className="w-14 h-px mt-3" style={{ backgroundColor: '#C9A96E' }} />
+                            <div className="w-12 h-px mt-2" style={{ backgroundColor: '#C9A96E' }} />
                         </section>
 
-                        {/* Product Grid Section */}
-                        <section className="flex flex-col gap-8 pb-12">
-                            {/* Section Bar */}
+                        {/* ── 2. Archive Products Section ── */}
+                        <section className="flex flex-col gap-6 pb-6">
+                            {/* 7. Archive Section Header Bar */}
                             <div className="flex items-center justify-between border-b border-[#e4e2df] pb-3">
                                 <span className="text-[10px] uppercase tracking-[0.22em] font-medium text-[#7A6E63]">
                                     Archive Pieces
                                 </span>
                                 <span className="text-[10px] uppercase tracking-[0.18em] text-[#B5ADA3]">
-                                    {products?.length || 0} Products
+                                    {productCount} {productCount === 1 ? 'PRODUCT' : 'PRODUCTS'}
                                 </span>
                             </div>
 
+                            {/* Product Cards Grid */}
                             {products && products.length > 0 ? (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+                                <div className={getGridClass()}>
                                     {products.map(product => {
                                         const imageUrl = getImageUrl(product);
                                         const priceText = formatPrice(product);
 
                                         return (
-                                            <div onclick={() => navigate(`/product/${product._id}`)}
+                                            <div
                                                 key={product._id}
                                                 onClick={() => navigate(`/product/${product._id}`)}
-                                                className="group cursor-pointer flex flex-col justify-between border border-[#e4e2df] transition-all duration-300 hover:border-[#C9A96E] bg-white/40"
+                                                className="group cursor-pointer flex flex-col justify-between border border-[#e4e2df] transition-all duration-300 hover:border-[#1b1c1a] bg-white/40 overflow-hidden"
                                             >
                                                 <div>
-                                                    {/* Image Container */}
-                                                    <div className="relative aspect-4/5 w-full overflow-hidden bg-[#eae8e5]">
+                                                    {/* 3 & 6. Image Container with Corner Price Badge */}
+                                                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#eae8e5]">
                                                         <img
                                                             src={imageUrl}
                                                             alt={product.title || 'Product'}
                                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                             onError={(e) => { e.currentTarget.src = '/snitch_editorial_warm.png'; }}
                                                         />
-                                                        {/* Compact Price Badge */}
-                                                        <div className="absolute top-3 right-3 bg-[#1b1c1a] text-[#fbf9f6] px-2.5 py-1 text-[10px] font-medium tracking-wider">
+                                                        {/* 6. Clean Price Badge */}
+                                                        <div className="absolute top-3 right-3 bg-[#1b1c1a]/95 text-[#fbf9f6] px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase backdrop-blur-sm border border-[#1b1c1a]">
                                                             {priceText}
                                                         </div>
                                                     </div>
 
-                                                    {/* Details */}
-                                                    <div className="p-4 sm:p-5 flex flex-col gap-2">
+                                                    {/* 4. Product Card Hierarchy (Title & Description) */}
+                                                    <div className="p-5 flex flex-col gap-2">
                                                         <h3
-                                                            className="text-base sm:text-lg font-light text-[#1b1c1a] leading-snug truncate group-hover:text-[#C9A96E] transition-colors duration-300"
+                                                            className="text-lg sm:text-xl font-light text-[#1b1c1a] leading-snug truncate group-hover:text-[#C9A96E] transition-colors duration-300"
                                                             style={{ fontFamily: "'Cormorant Garamond', serif" }}
                                                         >
                                                             {product.title || 'Untitled Piece'}
                                                         </h3>
                                                         {product.description && (
-                                                            <p className="text-[11px] text-[#7A6E63] line-clamp-2 leading-relaxed">
+                                                            <p className="text-xs text-[#7A6E63] line-clamp-2 leading-relaxed">
                                                                 {product.description}
                                                             </p>
                                                         )}
                                                     </div>
                                                 </div>
 
-                                                {/* Card Footer */}
-                                                <div className="px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between border-t border-[#e4e2df]/50">
-                                                    <span className="text-[10px] uppercase tracking-wider text-[#C9A96E] font-medium">
-                                                        View Piece
-                                                    </span>
-                                                    <span className="text-xs text-[#7A6E63] group-hover:translate-x-1 transition-transform duration-300">
-                                                        →
-                                                    </span>
+                                                {/* 5. View Piece Full-Width Interactive Button */}
+                                                <div className="px-5 pb-5 pt-1">
+                                                    <div className="w-full py-3 px-4 flex items-center justify-between border border-[#1b1c1a] bg-[#fbf9f6] text-[#1b1c1a] group-hover:bg-[#1b1c1a] group-hover:text-[#fbf9f6] transition-all duration-300 text-[10px] uppercase tracking-[0.22em] font-medium">
+                                                        <span>VIEW PIECE</span>
+                                                        <span className="text-xs group-hover:translate-x-1 transition-transform duration-300">
+                                                            →
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         );
@@ -227,7 +236,7 @@ const Home = () => {
                     </main>
                 </div>
 
-                {/* ── Footer ── */}
+                {/* ── 9. Footer (Proper spacing & alignment) ── */}
                 <footer className="w-full border-t border-[#e4e2df] py-12 text-center mt-auto bg-[#f7f4ef]">
                     <div className="flex flex-col items-center gap-3">
                         <span
@@ -247,3 +256,4 @@ const Home = () => {
 };
 
 export default Home;
+

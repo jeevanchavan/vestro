@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 const Dashboard = () => {
     const { handleGetSellerProducts } = useProduct();
     const sellerProducts = useSelector(state => state.product.sellerProducts);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -82,7 +83,8 @@ const Dashboard = () => {
 
                     {/* ── Product Grid ── */}
                     {sellerProducts && sellerProducts.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16 pb-24">
+                        <div onClick={()=> navigate(`/seller/product/${product_.id}`)}
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16 pb-24">
                             {sellerProducts.map(product => {
                                 const imageUrl = product.images && product.images.length > 0
                                     ? product.images[ 0 ].url
