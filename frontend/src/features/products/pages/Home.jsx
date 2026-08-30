@@ -7,8 +7,10 @@ import { useAuth } from '../../auth/hook/useAuth';
 const Home = () => {
     const products = useSelector(state => state.product.products);
     const user = useSelector(state => state.auth.user);
+
     const { handleGetAllProducts } = useProduct();
     const { handleGetMe } = useAuth();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -159,14 +161,14 @@ const Home = () => {
                                         const priceText = formatPrice(product);
 
                                         return (
-                                            <div
+                                            <div onclick={() => navigate(`/product/${product._id}`)}
                                                 key={product._id}
                                                 onClick={() => navigate(`/product/${product._id}`)}
                                                 className="group cursor-pointer flex flex-col justify-between border border-[#e4e2df] transition-all duration-300 hover:border-[#C9A96E] bg-white/40"
                                             >
                                                 <div>
                                                     {/* Image Container */}
-                                                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#eae8e5]">
+                                                    <div className="relative aspect-4/5 w-full overflow-hidden bg-[#eae8e5]">
                                                         <img
                                                             src={imageUrl}
                                                             alt={product.title || 'Product'}
